@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import GeographicLanding from './pages/GeographicLanding';
+import GigListingPage from './pages/GigListingPage';
+import ProfessionalProfilePage from './pages/ProfessionalProfilePage';
 
 function App() {
   return (
@@ -11,7 +13,8 @@ function App() {
         <main className="flex-1 flex flex-col">
           <Routes>
             <Route path="/" element={<GeographicLanding />} />
-            {/* Future routes like search results, profile, etc. can go here */}
+            <Route path="/services" element={<GigListingPage />} />
+            <Route path="/profile/:profileId" element={<ProfessionalProfilePage />} />
           </Routes>
         </main>
       </div>

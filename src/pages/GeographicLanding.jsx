@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { FiSearch, FiMapPin, FiCrosshair, FiGrid } from 'react-icons/fi';
 import ProCard from '../components/ProCard';
-import { categories, locations, professionals } from '../data/mockData';
+import { categories, professionals, gigListings } from '../data/siteData';
 
 const GeographicLanding = () => {
+  const navigate = useNavigate();
   const [userCity, setUserCity] = useState('');
   const [isDetecting, setIsDetecting] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
@@ -25,10 +27,14 @@ const GeographicLanding = () => {
     if (searchLocation) {
       setUserCity(searchLocation);
     }
+    const params = new URLSearchParams();
+    if (searchQuery) params.set('service', searchQuery);
+    if (searchLocation) params.set('location', searchLocation);
+    navigate(`/services${params.toString() ? `?${params.toString()}` : ''}`);
   };
 
   const localPros = professionals.filter(pro => pro.city === userCity);
-  
+
   // Group pros by some categories for display
   const topPlumbers = localPros.filter(pro => pro.category === 'Plumbers').slice(0, 4);
   const topElectricians = localPros.filter(pro => pro.category === 'Electricians').slice(0, 4);
@@ -41,7 +47,7 @@ const GeographicLanding = () => {
         {/* Abstract Background shapes */}
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-primary-800 opacity-50 blur-3xl"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-primary-700 opacity-40 blur-2xl"></div>
-        
+
         <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-6">
             Find the right pro, <br className="hidden sm:block" />
@@ -51,13 +57,22 @@ const GeographicLanding = () => {
             Book trusted, background-checked professionals for all your home service needs. From quick fixes to major renovations.
           </p>
 
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-3">
+            <Link to="/services" className="rounded-xl bg-white text-primary-700 px-5 py-3 font-bold shadow-lg hover:shadow-xl transition-all">
+              Browse service scopes
+            </Link>
+            <Link to={`/profile/${professionals[0].id}`} className="rounded-xl border border-primary-700 px-5 py-3 font-bold text-white hover:bg-primary-800 transition-all">
+              See a verified profile
+            </Link>
+          </div>
+
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="w-full max-w-4xl bg-white p-2 rounded-2xl shadow-xl flex flex-col md:flex-row gap-2">
             <div className="flex-1 relative flex items-center">
               <FiSearch className="absolute left-4 text-gray-400 h-5 w-5" />
-              <input 
-                type="text" 
-                placeholder="What service do you need?" 
+              <input
+                type="text"
+                placeholder="What service do you need?"
                 className="w-full pl-12 pr-4 py-3 md:py-4 bg-transparent border-none focus:ring-0 text-gray-900 placeholder-gray-500 rounded-xl"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -66,15 +81,15 @@ const GeographicLanding = () => {
             <div className="hidden md:block w-px bg-gray-200 my-2"></div>
             <div className="flex-1 relative flex items-center border-t md:border-t-0 border-gray-100">
               <FiMapPin className="absolute left-4 text-gray-400 h-5 w-5" />
-              <input 
-                type="text" 
-                placeholder="City or zip code" 
+              <input
+                type="text"
+                placeholder="City or zip code"
                 className="w-full pl-12 pr-12 py-3 md:py-4 bg-transparent border-none focus:ring-0 text-gray-900 placeholder-gray-500 rounded-xl"
                 value={searchLocation}
                 onChange={(e) => setSearchLocation(e.target.value)}
               />
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="absolute right-4 text-primary-600 hover:text-primary-800"
                 title="Use current location"
                 onClick={() => setSearchLocation('San Francisco')}
@@ -82,8 +97,8 @@ const GeographicLanding = () => {
                 <FiCrosshair className="h-5 w-5" />
               </button>
             </div>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 md:py-4 rounded-xl font-bold transition-colors shadow-md"
             >
               Search
@@ -102,9 +117,62 @@ const GeographicLanding = () => {
         </div>
       </div>
 
+      {/* Featured Gig Scopes */}
+      <div className="bg-white py-16 border-t border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between gap-4 mb-8">
+            <div>
+              <h2 className="text-3xl font-bold text-gray-900">Featured service scopes</h2>
+              <p className="text-gray-500 mt-2">Fixed-price gigs that feel closer to marketplace listings than generic resumes.</p>
+            </div>
+            <Link to="/services" className="text-primary-600 font-semibold hover:text-primary-700">
+              View all gigs
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {gigListings.slice(0, 3).map((gig) => {
+              const seller = professionals.find((pro) => pro.id === gig.professionalId);
+              return (
+                <Link
+                  to={`/profile/${seller.id}`}
+                  key={gig.id}
+                  className="group rounded-2xl border border-gray-200 bg-gray-50 p-6 hover:shadow-lg hover:border-primary-300 transition-all"
+                >
+                  <div className="flex items-start justify-between gap-4 mb-4">
+                    <div>
+                      <span className="inline-flex items-center rounded-full bg-primary-100 px-3 py-1 text-xs font-semibold text-primary-700 mb-3">
+                        {gig.badge}
+                      </span>
+                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary-700 transition-colors">{gig.title}</h3>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-xl font-black text-gray-900">${gig.price}</div>
+                      <div className="text-xs text-gray-500">{gig.priceType}</div>
+                    </div>
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed mb-4">{gig.shortDescription}</p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {gig.scopeItems.slice(0, 3).map((item) => (
+                      <span key={item} className="rounded-full bg-white px-3 py-1 text-xs font-medium text-gray-600 border border-gray-200">
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex items-center justify-between text-sm text-gray-500">
+                    <span>{seller.name}</span>
+                    <span>{gig.delivery}</span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        
+
         {/* Status indicator */}
         <div className="mb-12 flex items-center justify-between">
           <div>
@@ -122,7 +190,7 @@ const GeographicLanding = () => {
         {/* Loading State */}
         {isDetecting ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 animate-pulse">
-            {[1,2,3,4].map(i => (
+            {[1, 2, 3, 4].map(i => (
               <div key={i} className="bg-white rounded-xl h-80 border border-gray-100 shadow-sm p-6 flex flex-col">
                 <div className="flex gap-4">
                   <div className="w-16 h-16 bg-gray-200 rounded-full"></div>
@@ -141,7 +209,7 @@ const GeographicLanding = () => {
           </div>
         ) : (
           <div className="space-y-16">
-            
+
             {/* Top Plumbers Section */}
             {topPlumbers.length > 0 && (
               <section>
@@ -185,7 +253,7 @@ const GeographicLanding = () => {
                 </div>
               </section>
             )}
-            
+
             {localPros.length === 0 && (
               <div className="bg-white rounded-xl p-12 text-center border border-gray-200">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 text-gray-400 mb-4">
@@ -206,7 +274,7 @@ const GeographicLanding = () => {
             <h2 className="text-3xl font-bold text-gray-900">Browse all categories</h2>
             <p className="text-gray-500 mt-2">Discover the talent you need for any project.</p>
           </div>
-          
+
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {categories.map((cat) => (
               <div key={cat.id} className="border border-gray-200 rounded-xl p-6 text-center hover:shadow-md hover:border-primary-300 cursor-pointer transition-all group">

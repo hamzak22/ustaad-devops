@@ -1,5 +1,6 @@
 import React from 'react';
 import { FiStar, FiMapPin, FiCheckCircle } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 const ProCard = ({ pro }) => {
   return (
@@ -8,9 +9,9 @@ const ProCard = ({ pro }) => {
         <div className="flex items-start justify-between gap-4">
           <div className="flex gap-4">
             <div className="relative">
-              <img 
-                src={pro.avatar} 
-                alt={pro.name} 
+              <img
+                src={pro.avatar}
+                alt={pro.name}
                 className="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm group-hover:border-primary-100 transition-colors"
               />
               <div className="absolute bottom-0 right-0 bg-green-500 w-4 h-4 rounded-full border-2 border-white" title="Online"></div>
@@ -56,9 +57,9 @@ const ProCard = ({ pro }) => {
           <FiCheckCircle className="text-green-500" />
           <span>{pro.completedJobs} jobs done</span>
         </div>
-        <button className="text-primary-600 font-semibold text-sm hover:text-primary-700 transition-colors">
+        <Link to={`/profile/${pro.id}`} className="text-primary-600 font-semibold text-sm hover:text-primary-700 transition-colors">
           View Profile
-        </button>
+        </Link>
       </div>
     </div>
   );
