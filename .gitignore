@@ -18,8 +18,34 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
+
+# Environment & Secrets (DO NOT COMMIT)
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+aws-credentials.txt
+
+# Docker (built files)
+.dockerignore~
+docker-compose.override.yml
+
+# OS
+Thumbs.db
+.AppleDouble
+.LSOverride
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+# markdown files
+ARCHITECTURE.md
+CHECKLIST.md
+CONFIG_REFERENCE.md
+IMPLEMENTATION_PLAN.md
+INDEX.md
+QUICK_START.md
+SETUP_SUMMARY.md
