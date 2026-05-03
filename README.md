@@ -64,3 +64,4 @@ The primary theme colors and fonts are configured centrally in `src/index.css`. 
 
 # Change 1
 # Change 2
+# Change 3
