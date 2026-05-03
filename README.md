@@ -63,3 +63,4 @@ The primary theme colors and fonts are configured centrally in `src/index.css`. 
 5. Open a Pull Request
 
 # Change 1
+# Change 2
