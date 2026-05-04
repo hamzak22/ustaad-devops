@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiSearch, FiBell, FiMenu, FiX, FiChevronRight, FiGrid, FiHome, FiUser, FiBriefcase, FiZap, FiDroplet } from 'react-icons/fi';
+import { FiSearch, FiBell, FiMenu, FiX, FiChevronRight, FiGrid, FiHome, FiUser, FiBriefcase, FiZap, FiDroplet, FiCheckCircle, FiPlus } from 'react-icons/fi';
 import { Link, NavLink } from 'react-router-dom';
 import { categories, gigListings, professionals } from '../data/siteData';
 
@@ -9,7 +9,7 @@ const featuredGig = gigListings[0];
 const primaryLinks = [
   { to: '/', label: 'Find Pros', icon: FiHome, end: true },
   { to: '/services', label: 'Gig Marketplace', icon: FiBriefcase },
-  { to: `/profile/${featuredProfile.id}`, label: 'Featured Pro', icon: FiUser },
+  { to: '/project/1', label: 'My Projects', icon: FiCheckCircle },
 ];
 
 const categoryIcons = {
@@ -48,6 +48,12 @@ const Navbar = () => {
                   {label}
                 </NavLink>
               ))}
+              <Link
+                to="/post-job"
+                className="inline-flex items-center gap-2 rounded-full bg-primary-600 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-primary-700 shadow-lg shadow-primary-200 ml-4"
+              >
+                <FiPlus className="h-4 w-4" /> Post a Job
+              </Link>
             </div>
           </div>
           <div className="flex items-center gap-3 sm:gap-5">
@@ -178,6 +184,9 @@ const Navbar = () => {
                   </Link>
                   <Link to={`/profile/${featuredProfile.id}`} onClick={() => setIsMenuOpen(false)} className="text-sm font-semibold text-primary-700 hover:text-primary-800">
                     Featured profile
+                  </Link>
+                  <Link to="/bids/1" onClick={() => setIsMenuOpen(false)} className="text-sm font-semibold text-primary-700 hover:text-primary-800">
+                    Submit Bid (Pro View)
                   </Link>
                 </div>
               </div>

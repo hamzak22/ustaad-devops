@@ -170,6 +170,29 @@ const GeographicLanding = () => {
         </div>
       </div>
 
+      {/* Discovery Flow CTA */}
+      <div className="bg-slate-50 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-primary-600 rounded-[3rem] p-8 md:p-16 text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-2xl shadow-primary-200 overflow-hidden relative">
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+            <div className="relative z-10 max-w-xl">
+              <h2 className="text-3xl md:text-4xl font-black mb-4 tracking-tight">Need a custom quote?</h2>
+              <p className="text-primary-100 text-lg leading-relaxed">
+                Some jobs are too complex for a fixed price. Use our Discovery flow to post your project details, upload photos, and get tailored bids from multiple experts.
+              </p>
+            </div>
+            <div className="relative z-10 flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+              <Link to="/post-job" className="bg-white text-primary-600 px-8 py-4 rounded-2xl font-black shadow-lg hover:scale-105 transition-all text-center">
+                Start Discovery Flow
+              </Link>
+              <Link to="/services" className="bg-primary-700 text-white border border-primary-500 px-8 py-4 rounded-2xl font-black hover:bg-primary-800 transition-all text-center">
+                Browse Marketplace
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 

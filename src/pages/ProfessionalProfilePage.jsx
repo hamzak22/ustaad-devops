@@ -75,6 +75,9 @@ const ProfessionalProfilePage = () => {
                                 <Link to={`/services?professional=${professional.id}`} className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition-colors hover:bg-slate-100">
                                     See all service scopes
                                 </Link>
+                                <Link to="/post-job" className="rounded-xl bg-primary-600 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-700 shadow-lg shadow-primary-500/20">
+                                    Request Custom Quote
+                                </Link>
                                 <Link to="/services" className="rounded-xl border border-white/20 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">
                                     Compare other pros
                                 </Link>
