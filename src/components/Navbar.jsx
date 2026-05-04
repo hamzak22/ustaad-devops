@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { FiSearch, FiBell, FiMenu, FiX, FiChevronRight, FiGrid, FiHome, FiUser, FiBriefcase, FiZap, FiDroplet, FiCheckCircle, FiPlus } from 'react-icons/fi';
+import { useEffect, useState } from 'react';
+import { FiSearch, FiBell, FiMenu, FiX, FiChevronRight, FiGrid, FiHome, FiBriefcase, FiZap, FiDroplet, FiCheckCircle, FiPlus, FiActivity } from 'react-icons/fi';
 import { Link, NavLink } from 'react-router-dom';
 import { categories, gigListings, professionals } from '../data/siteData';
 
@@ -10,6 +10,7 @@ const primaryLinks = [
   { to: '/', label: 'Find Pros', icon: FiHome, end: true },
   { to: '/services', label: 'Gig Marketplace', icon: FiBriefcase },
   { to: '/project/1', label: 'My Projects', icon: FiCheckCircle },
+  { to: '/worker/on-the-job', label: 'On the Job', icon: FiActivity },
 ];
 
 const categoryIcons = {
@@ -187,6 +188,9 @@ const Navbar = () => {
                   </Link>
                   <Link to="/bids/1" onClick={() => setIsMenuOpen(false)} className="text-sm font-semibold text-primary-700 hover:text-primary-800">
                     Submit Bid (Pro View)
+                  </Link>
+                  <Link to="/worker/on-the-job" onClick={() => setIsMenuOpen(false)} className="text-sm font-semibold text-primary-700 hover:text-primary-800">
+                    Worker On-the-Job
                   </Link>
                 </div>
               </div>
